@@ -33,6 +33,15 @@
             ],
             "styles": [
               {
+                "input":"node_modules/bootstrap/dist/css/bootstrap.css"
+              },
+              {
+                "input":"src/style.scss"
+              },
+              {
+                "input":"node_modules/@nebular/theme/styles/prebuilt/default.css"
+              },
+              {
                 "input": "src/theme/variables.scss"
               },
               {

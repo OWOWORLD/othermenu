@@ -1,6 +1,8 @@
 {
   "name": "foodhigh",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "7afc0bf7"
 }

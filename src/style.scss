@@ -1,0 +1,53 @@
+// this is our just created themes.scss file, make sure the path to the file is correct
+@import 'themes';
+// framework component styles
+@import '~@nebular/theme/styles/globals';
+
+.fh_font_1{
+  font-family: 'Exo', sans-serif;
+}
+.fh_font_2{
+  font-family: 'Didact Gothic', sans-serif;
+}
+.fh_font_3{
+  font-family: 'Architects Daughter', cursive;
+}
+.fh_font_4{
+  font-family: 'Coiny', cursive;
+}
+.fh_font_b{
+  font-family: 'K2D', sans-serif;
+}
+.text-center{
+  text-align: center;
+
+}
+.text-white{
+  color:#fff
+
+}
+.icon_1{
+  font-size: 27px;
+  color:#199C44
+}
+.icon_2{
+  font-size: 27px;
+  color:#3C6EBB
+}
+.icon_3{
+  font-size: 27px;
+  color:#924ABB
+}
+.icon_4{
+  font-size: 27px;
+  color:#3C6EBB
+}
+
+.icon_error{
+  font-size: 54px;
+  color:#ff3d71
+}
+// install the framework styles
+@include nb-install() {
+  @include nb-theme-global();
+};
