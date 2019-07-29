@@ -45,6 +45,7 @@ export class SessionPage implements OnInit {
   show_login: boolean
   show_register: boolean
   show_confirm: boolean
+  show_reset: boolean
 
   constructor(
     private device: Device,
@@ -86,6 +87,72 @@ export class SessionPage implements OnInit {
 
           }, 2000)
         } else {
+          this.presentAlert('error', 'fix needed', res.message)
+
+        }
+        // console.log(res)
+      }, err => {
+        console.log(err)
+      })
+  }
+
+  tryRegister(value: any) {
+
+    this.presentAlert('please wait', null, 'granting access...')
+    // console.log(value)
+    this.$user.doRegister(value, this.device.uuid)
+      .then((res: any) => {
+        if (res.success) {
+          // console.log(res)
+          this.dismiss()
+          this.storage.set('token', res.token);
+          this.storage.set('user_id', res.user_id);
+          this.storage.set('user_name', res.user_name);
+
+          this.presentAlert('done!', null, res.message)
+          setTimeout(() => {
+
+            this.dismiss()
+
+            this.router.navigate(["/home"]);
+
+          }, 2000)
+
+        } else {
+
+          this.presentAlert('error', 'fix needed', res.message)
+
+        }
+        // console.log(res)
+      }, err => {
+        console.log(err)
+      })
+  }
+
+  tryReset(value: any) {
+
+    this.presentAlert('please wait', null, 'sending email...')
+    // console.log(value)
+    this.$user.doReset(value, this.device.uuid)
+      .then((res: any) => {
+        if (res.success) {
+          // console.log(res)
+          this.dismiss()
+          this.storage.set('token', res.token);
+          this.storage.set('user_id', res.user_id);
+          this.storage.set('user_name', res.user_name);
+
+          this.presentAlert('done!', null, res.message)
+          setTimeout(() => {
+
+            this.dismiss()
+
+            this.router.navigate(["/home"]);
+
+          }, 2000)
+
+        } else {
+
           this.presentAlert('error', 'fix needed', res.message)
 
         }

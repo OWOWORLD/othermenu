@@ -2,7 +2,9 @@
 @import 'themes';
 // framework component styles
 @import '~@nebular/theme/styles/globals';
-
+img {
+    image-orientation: from-image;
+}
 .fh_font_1{
   font-family: 'Exo', sans-serif;
 }
@@ -41,6 +43,10 @@
 .icon_4{
   font-size: 27px;
   color:#3C6EBB
+}
+.icon_5{
+  font-size: 27px;
+  color:#F3AF18
 }
 
 .icon_error{

@@ -5,82 +5,334 @@
         <nb-action  routerLink="/home"><i class="fas fa-apple-alt icon_1" ></i></nb-action>
         <nb-action [nbContextMenu]="cat" right  ><i class="fas fa-pizza-slice icon_2"></i></nb-action>
         <nb-action [nbContextMenu]="sort" right  ><i class="fas fa-funnel-dollar icon_3" ></i></nb-action>
-        <nb-action [nbContextMenu]="profile" right *ngIf="user_id"><i class="fas fa-user-astronaut icon_4" ></i></nb-action>
+        <nb-action [nbContextMenu]="profile" nbContextMenuTag="profile" right  status="info" *ngIf="user_id"><i class="fas fa-user-astronaut icon_4"></i></nb-action>
 
       </nb-actions>
     </nb-layout-header>
     <nb-layout-column class="p-0">
 
-        <div class="row">
+      <div class="row" *ngIf="show_smell">
+        <div class="col-sm-12">
+          <nb-card style="background-image: linear-gradient(135deg, #79F1A4 0%, #0E5CAD 100%);">
+            <nb-card-body class="pt-4 mt-4 mb-4">
+                <h4 class="text-center font_1 text-white" style="line-height:29px"><small>meal from</small><br />{{Dmeal.fork[0].restaurant.name}}<br /><small><small>{{Dmeal.fork[0].restaurant.categories[0].title}}</small></small><br /><small>price</small><br />${{Dmeal.price}}</h4>
+                <div  class="text-center mt-3 pt-3">
+                  <button nbButton shape="semi-round" (click)="show_delivery=true" status="danger" class="font_b" disabled>Order</button>
+                </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="show_smell">
+        <div class="col-sm-12">
+          <nb-card>
+            <nb-card-header>
+            <h5  class="font_2  text-white">{{Dmeal.fork[0].meal.title}} |  {{Dmeal.fork[0].meal.category}}</h5>
+            </nb-card-header>
+            <nb-card-body>
+              <div  class="row">
+                <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                  <img src="{{Dmeal.fork[0].mealImages[0].image}}"  class="img-responsive" />
+                  </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+              <div  class="text-white h6 font_2">
+                {{Dmeal.fork[0].meal.details}}
+                </div>
+            </nb-card-footer>
+          </nb-card>
+          </div>
+      </div>
+
+      <div class="row" *ngIf="show_smell">
+        <div class="col-sm-12">
+          <nb-card>
+            <nb-card-header>
+            <h5  class="font_2  text-white">{{Dmeal.fork[0].strain.name}} |  {{Dmeal.fork[0].strain.strain}}</h5>
+            </nb-card-header>
+            <nb-card-body>
+              <div  class="row">
+                <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                  <img src="{{Dmeal.fork[0].strainImages[0].image}}"  class="img-responsive" />
+                  </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+              <div  class="text-white h6 font_2">
+                {{Dmeal.fork[0].strain.profile}}
+                </div>
+            </nb-card-footer>
+          </nb-card>
+          </div>
+      </div>
+
+      <div class="row" *ngIf="show_smell">
+        <div class="col-sm-12">
+          <nb-card>
+            <nb-card-header>
+            <h5  class="font_2  text-white">{{Dmeal.fork[0].restaurant.name}} |  {{Dmeal.fork[0].restaurant.categories[0].title}}</h5>
+            </nb-card-header>
+            <nb-card-body>
+              <div  class="row">
+                <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                  <img src="{{Dmeal.fork[0].restaurant.photos[0]}}"  class="img-responsive" />
+                  </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+              <div  class="text-white h6 font_2">
+                {{Dmeal.fork[0].restaurant.rating}} rating (yelp)
+                </div>
+            </nb-card-footer>
+          </nb-card>
+          </div>
+      </div>
+
+      <div class="row" *ngIf="show_smell">
+        <div class="col-sm-12">
+          <nb-card>
+            <nb-card-header>
+            <h5  class="font_2  text-white">{{Dmeal.fork[0].x.title}} |  {{Dmeal.fork[0].x.type}}</h5>
+            </nb-card-header>
+            <nb-card-body>
+              <div  class="row">
+                <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                  <img src="{{Dmeal.fork[0].xImages[0].image}}"  class="img-responsive" />
+                  </div>
+                </div>
+            </nb-card-body>
+            <nb-card-footer>
+              <div  class="text-white h6 font_2">
+                {{Dmeal.fork[0].x.details}}
+                </div>
+                <div  class="text-white h6 font_2">
+                  <small *ngIf="Dmeal.fork[0].x.videoUrl"><a href="{{Dmeal.fork[0].x.videoUrl}}" target="_blank">video Link</a></small><br />
+                  <small *ngIf="Dmeal.fork[0].x.musicUrl"><a href="{{Dmeal.fork[0].x.musicUrl}}" target="_blank">music/playlist Link</a></small>
+
+                  </div>
+            </nb-card-footer>
+          </nb-card>
+          </div>
+      </div>
+
+        <div class="row" *ngIf="!show_delivery  && !show_curators && !show_smell">
           <div class="col-sm-12">
             <nb-card style="background-image: linear-gradient(135deg, #79F1A4 0%, #0E5CAD 100%);">
               <nb-card-body class="pt-4 mt-4 mb-4">
-                  <h4 class="text-center font_1 text-white">place order</h4>
-                  <h6 class="font_1 text-center text-white pt-2 mb-4">club members have created awesome meal experiences,<br /> <br />to place an order select a meal experiences below</h6>
+                  <h4 class="text-center font_1 text-white">food high order</h4>
+                  <h6 class="font_1 text-center text-white pt-2 mb-4">club members have created awesome meal experiences,<br /> <br /><strong>open for orders 8/20/2019 @4:20pm PST</strong></h6>
                   <div  class="text-center mt-3 pt-3">
+                    <button nbButton shape="semi-round" (click)="show_delivery=true" status="warning" class="font_b" >Delivery Only</button>
+                  </div>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row"  *ngIf="show_delivery && !show_curators && !show_smell">
+          <div  class="col-sm-12">
+            <nb-card style="background-image: linear-gradient(135deg, #79F1A4 0%, #0E5CAD 100%);">
+              <nb-card-body class="pt-4 mt-4 mb-4">
+                  <h4 class="text-center font_1 text-white">Order Delivery Only</h4>
+                  <div  class="text-center mt-3 pt-3 text-white font_2 h5">
+                    If the restaurant you'd like to order from is not a forker experience, or  if you ordered your meal using another service, we can pick up your carryout order and deliver it to you  with your gift mystery box.
+                  </div>
+                  <div  class="text-center mt-3 pt-3">
+                    <button nbButton  ghost shape="semi-round" (click)="show_delivery=false" status="dark" class="font_b" ><i class="fas fa-arrow-left"></i> &nbsp;back</button>
+                  </div>
+
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row"  *ngIf="show_curators">
+          <div  class="col-sm-12">
+            <nb-card style="background-image: linear-gradient(135deg, #79F1A4 0%, #0E5CAD 100%);">
+              <nb-card-body class="pt-4 mt-4 mb-4">
+                  <h4 class="text-center font_1 text-white">Select A Curator</h4>
+                  <div  class="text-center mt-3 pt-3 text-white font_2 h5">
+                    Delivery Curators set their own delivery fee, select a curator below<br />
+                    to pick up your meal from
+
+                  </div>
+                  <div  class="text-center mt-3 pt-3 text-white font_2 h5">
+                    <strong>{{restaurantName}}</strong><br />
+                    {{restaurantAddress}}<br />
+                    {{restaurantAddress2}}
+                  </div>
+
+                  <div  class="text-center mt-3 pt-3">
+                    <button nbButton  ghost shape="semi-round" (click)="show_curators=false; show_delivery=true" status="dark" class="font_b" ><i class="fas fa-arrow-left"></i> &nbsp;back</button>
+                  </div>
+
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center pl-2 pr-2"  *ngIf="show_delivery &&  !show_curators">
+          <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+            <nb-card>
+              <nb-card-header>
+                <h6 class="text-center text-white font_2">
+                  Pick up from<br />
+
+                </h6>
+              </nb-card-header>
+              <nb-card-body class="pt-4 mt-4 mb-4">
+                <form class="form" [formGroup]="_pickup" (ngSubmit)="tryPickup(_pickup.value)">
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="city" formControlName="city">
+
+                  </div>
+                  <div class="p-1" *ngIf="_pickup.value.city">
+                    <input type="text" nbInput fullWidth fieldSize="giant" (keypress)="search($event)" class="text-white" placeholder="restaurant name" formControlName="name">
+
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center pr-2 pl-2 row-eq-height" *ngIf="Dsearch && Dsearch.length>0  &&  !show_curators">
+          <div  class="col-md-3 col-lg-4 col-xl-4 col-xxl-4" *ngFor="let data of Dsearch">
+            <nb-card class="text-white" accent="success">
+              <nb-card-header>
+                  <div class="row">
+                      <div  class="col-12  text-white pt-2 pl-0 mt-1 text-right font_2">
+                        {{data.name}}
+                        </div>
                     </div>
+              </nb-card-header>
+              <nb-card-body class="p-0 text-center">
+                <img src="{{data.image_url}}"  class="img-responsive" style="max-height:189px; width:auto; margin-left:auto; margin-right:auto"/>
+              </nb-card-body>
+              <nb-card-footer>
+                <div class="row">
+                  <div  class="col-12 d-inline-block ">
+                    <h5 class="font_2 text-success text-center align-middle">
+                     {{data.display_phone}}<br /><small><small class="font_3">{{data.categories[0].title}}</small></small><br /><small><small>{{data.location.display_address[0]}}<br /> {{data.location.display_address[1]}}</small></small>
+
+                    </h5>
+
+                    </div>
+                    <div  class="col-12 d-inline text-center">
+                      <button nbButton  shape="semi-round" (click)="selectRestaurant(data.alias,data.name,data.location.display_address[0],data.location.display_address[1])" status="warning" class="font_b" ><i class="fas fa-check-double"></i> &nbsp;select</button>
+
+                      </div>
+
+                  </div>
+              </nb-card-footer>
+            </nb-card>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center pr-2 pl-2 row-eq-height" *ngIf="Dcurators && Dcurators.length>0  &&  show_curators">
+          <div  class="col-md-3 col-lg-4 col-xl-4 col-xxl-4" *ngFor="let data of Dcurators">
+            <nb-card class="text-white" accent="success">
+              <nb-card-header>
+                  <div class="row">
+                    <div  class="col-3 d-inline pr-2">
+                      <img src="{{data.avatar ||  'assets/imgs/alien_5.png'}}" class="rounded-circle img-thumbnail" />
+                      </div>
+                      <div  class="col-9  text-white pt-2 pl-0 mt-1 text-right font_2">
+                        {{data.user_name}}
+                        </div>
+                    </div>
+              </nb-card-header>
+              <nb-card-body class="p-0 text-center"  style="background-color:#fff">
+                <img src="{{data.gifts[0].pics[0].image}}"  class="img-responsive" style="max-height:189px; width:auto; margin-left:auto; margin-right:auto"/>
+              </nb-card-body>
+              <nb-card-footer>
+                <div class="row">
+                  <div  class="col-12 d-inline-block ">
+                    <h5 class="font_2 text-success text-center align-middle">
+                      Delivery Fee: <strong>${{data.delivery_fee}}</strong><br />
+                      <small>Deliveries: 5</small>
+
+
+                    </h5>
+
+                    </div>
+                    <div  class="col-12 d-inline text-center">
+                      <button nbButton  shape="semi-round" (click)="checkout(data.user_id)" status="warning" class="font_b" ><i class="fas fa-check-double"></i> &nbsp;select</button>
+
+                      </div>
+
+                  </div>
+              </nb-card-footer>
+            </nb-card>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center pr-2 pl-2 row-eq-height" *ngIf="Dcurators && Dcurators.length<1  &&  show_curators">
+          <div  class="col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+            <nb-card class="text-white" accent="success">
+
+              <nb-card-body class="p-0 text-center">
+                <h4  class="text-center text-white font_4 p-3">No Genies in your area</h4>
               </nb-card-body>
             </nb-card>
 
           </div>
         </div>
-
-        <div class="row pt-0 mt-0 mb-0"  >
-          <div  class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
-            <nb-flip-card>
-              <nb-card-front>
-                <nb-card accent="success">
+        <div class="row pl-2 pr-2"  *ngIf="!show_delivery  && !show_smell  && Dforks &&  Dforks.length>0">
+          <div  class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6" *ngFor="let data of Dforks; let i = index">
+                <nb-card class="text-white">
                   <nb-card-header>
-                    <nb-user size="large"
-                             name="Jonh Doe"
-                             title="Engineer"
-                             showTitle=false>
-                    </nb-user>
-
+                      <div class="row">
+                        <div  class="col-3 d-inline pr-2">
+                          <img src="{{data.avatar}}" class="rounded-circle img-thumbnail"  style="height:50px;width:auto" />
+                          </div>
+                          <div  class="col-9  text-white pt-2 pl-0 mt-1 text-right font_2">
+                            {{data.fork[0].meal.title}}
+                            </div>
+                        </div>
                   </nb-card-header>
-                  <nb-card-body>
-                    A nebula is an interstellar cloud of dust, hydrogen,
-                    helium and other ionized gases.
-                    Originally, nebula was a name for
-                    any diffuse astronomical object,
-                    including galaxies beyond the Milky Way.
-                    A nebula is an interstellar cloud of dust, hydrogen,
-                    helium and other ionized gases.
-                    Originally, nebula was a name for
-                    any diffuse astronomical object,
-                    including galaxies beyond the Milky Way.
-                    A nebula is an interstellar cloud of dust, hydrogen,
-                    helium and other ionized gases.
-                    Originally, nebula was a name for
-                    any diffuse astronomical object,
-                    including galaxies beyond the Milky Way.
-                    A nebula is an interstellar cloud of dust, hydrogen,
-                    helium and other ionized gases.
-                    Originally, nebula was a name for
-                    any diffuse astronomical object,
-                    including galaxies beyond the Milky Way.
-                    A nebula is an interstellar cloud of dust, hydrogen,
-                    helium and other ionized gases.
-                    Originally, nebula was a name for
-                    any diffuse astronomical object,
-                    including galaxies beyond the Milky Way.
+                  <nb-card-body class="p-0  text-center">
+                    <img src="{{data.fork[0].mealImages[0].image}}"  id="image" style="width:auto; max-height:250px"  />
                   </nb-card-body>
+                  <nb-card-footer>
+                    <div class="row">
+                      <div  class="col-8 d-inline-block ">
+                        <h4 class="font_2 text-success text-left align-middle">
+                         ${{data.fork[0].meal.price}} |  &nbsp;<small><i class="fas fa-utensils"></i>&nbsp;<small>x</small><span class="font_4">{{data.fork[0].forks}}</span></small><br />
+                         <small><small>{{data.fork[0].meal.serving}}  | {{data.fork[0].strain.strain}}</small></small>
+                        </h4>
+
+                        </div>
+                        <div  class="col-4 d-inline-block  text-white text-right">
+                          <p class="font_2 text-white align-middle">
+                            <button nbButton status="info" routerLink="/order/smell/{{data.id}}"><i class="fas fa-wind"></i>&nbsp; smell</button>
+                            </p>
+                          </div>
+                      </div>
+                  </nb-card-footer>
                 </nb-card>
-              </nb-card-front>
-              <nb-card-back>
-                <nb-card accent="primary">
-                  <nb-card-header>Strain</nb-card-header>
-                  <nb-card-body>
-                    A nebula is an interstellar cloud of dust, hydrogen,
-                    helium and other ionized gases.
-                    Originally, nebula was a name for
-                    any diffuse astronomical object,
-                    including galaxies beyond the Milky Way.
-                  </nb-card-body>
-                </nb-card>
-              </nb-card-back>
-            </nb-flip-card>
+
             </div>
+        </div>
+        <div class="row justify-content-md-center pl-2 pr-2"  *ngIf="!show_delivery  && Dforks &&  Dforks.length<1">
+          <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+            <nb-card>
+
+              <nb-card-body  accent="info" class="pt-4 mt-4 mb-4">
+                <h5 class="text-white text-center font_2 col-md-8 offset-md-2">
+                  no forks available in your area<br />delivery genies can pick up your carry out order if you'd like to order delivery
+
+                </h5>
+                <div class="text-center"  *ngIf="!user_id">
+                  <button nbButton status="info" routerLink="/session">&nbsp; Login/Signup</button>
+
+                  </div>
+              </nb-card-body>
+            </nb-card>
+
+          </div>
         </div>
 
     </nb-layout-column>

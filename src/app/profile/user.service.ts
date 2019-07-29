@@ -44,6 +44,78 @@ export class UserService {
         });
     });
   }
+  doReset(form: any, device: any) {
+
+    let DATA = {
+      user_email: form.email,
+      user_password: form.password,
+      form: form,
+      device: device
+
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return new Promise(resolve => {
+      this.http.post('https://app.foodhigh.club/user/reset', DATA, httpOptions)
+        .subscribe(data => {
+          //console.log(data)
+          resolve(data);
+        }, err => {
+          console.log(err);
+        });
+    });
+  }
+
+  doResetConfirm(form: any, device: any) {
+
+    let DATA = {
+      user_email: form.email,
+      user_password: form.password,
+      form: form,
+      device: device
+
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return new Promise(resolve => {
+      this.http.post('https://app.foodhigh.club/user/reset/confirm', DATA, httpOptions)
+        .subscribe(data => {
+          //console.log(data)
+          resolve(data);
+        }, err => {
+          console.log(err);
+        });
+    });
+  }
+
+  doIP() {
+
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json'
+    //   })
+    // };
+    //
+    // return new Promise(resolve => {
+    //   this.http.post('https://api.myip.com', null, httpOptions)
+    //     .subscribe(data => {
+    //       //console.log(data)
+    //       resolve(data);
+    //     }, err => {
+    //       console.log(err);
+    //     });
+    // });
+  }
 
   doRegister(form: any, device: any) {
 
@@ -71,7 +143,49 @@ export class UserService {
         });
     });
   }
-  start(user_id: any, user_token: any) {
+  start(user_id: any, user_token: any, lat: any, lng: any) {
+    // console.log(user_id, user_token)
+    let DATA = {
+
+      user_id: user_id,
+      user_token: user_token,
+      lat: lat,
+      lng: lng
+
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return new Promise(resolve => {
+      this.http.post('https://app.foodhigh.club/user/start', DATA, httpOptions)
+        .subscribe((data: any) => {
+          //console.log(data)
+          resolve(data);
+        }, err => {
+          console.log(err);
+        });
+    });
+  }
+
+  getIP() {
+    //https://ipinfo.io/developers/replacing-getcurrentposition
+    // console.log(user_id, user_token)
+    return new Promise(resolve => {
+      this.http.get('https://ipinfo.io/geo')
+        .subscribe((data: any) => {
+          //console.log(data)
+          resolve(data);
+        }, err => {
+          console.log(err);
+        });
+    });
+  }
+
+  pay(user_id: any, user_token: any) {
     // console.log(user_id, user_token)
     let DATA = {
 
@@ -87,7 +201,32 @@ export class UserService {
     };
 
     return new Promise(resolve => {
-      this.http.post('https://app.foodhigh.club/user/start', DATA, httpOptions)
+      this.http.post('https://app.foodhigh.club/cart/pay', DATA, httpOptions)
+        .subscribe(data => {
+          //console.log(data)
+          resolve(data);
+        }, err => {
+          console.log(err);
+        });
+    });
+  }
+  cancelOrder(user_id: any, user_token: any) {
+    // console.log(user_id, user_token)
+    let DATA = {
+
+      user_id: user_id,
+      user_token: user_token
+
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    return new Promise(resolve => {
+      this.http.post('https://app.foodhigh.club/cart/cancel', DATA, httpOptions)
         .subscribe(data => {
           //console.log(data)
           resolve(data);

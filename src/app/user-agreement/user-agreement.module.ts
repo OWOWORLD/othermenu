@@ -5,14 +5,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ForkSharePage } from './fork-share.page';
-import { NbThemeModule, NbRouteTabsetModule, NbInputModule, NbButtonModule, NbUserModule, NbLayoutModule, NbCardModule, NbActionsModule, NbTabsetModule, NbSidebarModule, NbIconModule, NbMenuModule, NbSelectModule, NbContextMenuModule, } from '@nebular/theme';
+import { UserAgreementPage } from './user-agreement.page';
+import { NbThemeModule, NbRouteTabsetModule, NbCheckboxModule, NbInputModule, NbButtonModule, NbUserModule, NbLayoutModule, NbCardModule, NbActionsModule, NbTabsetModule, NbSidebarModule, NbIconModule, NbMenuModule, NbSelectModule, NbContextMenuModule, } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 const routes: Routes = [
   {
     path: '',
-    component: ForkSharePage
+    component: UserAgreementPage
   }
 ];
 
@@ -36,9 +36,9 @@ const routes: Routes = [
     NbRouteTabsetModule,
     NbContextMenuModule,
     NbInputModule,
-
+    NbCheckboxModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ForkSharePage]
+  declarations: [UserAgreementPage]
 })
-export class ForkSharePageModule { }
+export class UserAgreementPageModule { }

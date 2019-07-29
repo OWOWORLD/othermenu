@@ -1,0 +1,167 @@
+<ion-content>
+  <nb-layout center class="own-scroll">
+    <nb-layout-header fixed>
+      <nb-actions>
+        <nb-action  routerLink="/home"><i class="fas fa-apple-alt icon_1" ></i></nb-action>
+        <nb-action [nbContextMenu]="profile" right *ngIf="user_id"><i class="fas fa-user-astronaut icon_4" ></i></nb-action>
+
+      </nb-actions>
+    </nb-layout-header>
+    <nb-layout-column class="p-0">
+      <div class="row justify-content-md-center pl-2 pr-2"  *ngIf="Dmeal">
+        <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+          <nb-card style="background-image: linear-gradient(135deg, #79F1A4 0%, #0E5CAD 100%);">
+            <nb-card-body class="pt-4 mt-4 mb-4">
+                <h4 class="text-center font_1 text-white" style="line-height:29px"><small>meal from</small><br />{{Dmeal.fork[0].restaurant.name}}<br /><small><small>{{Dmeal.fork[0].restaurant.categories[0].title}}</small></small><br /><small>price</small><br />${{Dmeal.price}}</h4>
+                <div  class="text-center mt-3 pt-3">
+                  <button nbButton shape="semi-round" status="danger" class="font_b" disabled>Order</button><br />
+                  <p class="text-center  mt-3  font_2 h5">
+                    orders open 8/20/2019 @4:20pm PST
+                    </p>
+                </div>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+      <div class="row" *ngIf="Dmeal">
+        <div class="col-sm-12">
+          <nb-card>
+            <nb-card-header>
+            <h5  class="font_2  text-white">{{Dmeal.fork[0].meal.title}} |  {{Dmeal.fork[0].meal.category}}</h5>
+            </nb-card-header>
+            <nb-card-body>
+              <div  class="row">
+                <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12 text-white" >
+                  <h6 class="text-white font_2 p-2">{{Dmeal.fork[0].meal.details}}</h6>
+                  </div>
+                </div>
+            </nb-card-body>
+
+          </nb-card>
+          </div>
+      </div>
+      <div class="row" *ngIf="Dmeal  && Dmeal.fork[0].mealImages.length>0">
+        <div class="col-sm-6 col-md-6 col-lg-6" *ngFor="let data  of Dmeal.fork[0].mealImages">
+          <nb-card>
+            <nb-card-body>
+              <div  class="row">
+                <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                  <img src="{{Dmeal.fork[0].mealImages[0].image}}"  class="img-responsive" />
+                  </div>
+                </div>
+            </nb-card-body>
+          </nb-card>
+
+        </div>
+        </div>
+
+        <div class="row" *ngIf="Dmeal">
+          <div class="col-sm-12">
+            <nb-card>
+              <nb-card-header>
+              <h5  class="font_2  text-white">{{Dmeal.fork[0].strain.name}} |  {{Dmeal.fork[0].strain.strain}}</h5>
+              </nb-card-header>
+              <nb-card-body>
+                <div  class="row">
+                  <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12 text-white" >
+                    <h6 class="text-white font_2 p-2">{{Dmeal.fork[0].strain.profile}}</h6>
+                    </div>
+                  </div>
+              </nb-card-body>
+
+            </nb-card>
+            </div>
+        </div>
+        <div class="row" *ngIf="Dmeal && Dmeal.fork[0].strainImages.length>0">
+          <div class="col-sm-6 col-md-6 col-lg-6" *ngFor="let data  of Dmeal.fork[0].strainImages">
+            <nb-card>
+              <nb-card-body>
+                <div  class="row">
+                  <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                    <img src="{{Dmeal.fork[0].strainImages[0].image}}"  class="img-responsive" />
+                    </div>
+                  </div>
+              </nb-card-body>
+            </nb-card>
+
+          </div>
+          </div>
+
+
+          <div class="row" *ngIf="Dmeal">
+            <div class="col-sm-12">
+              <nb-card>
+                <nb-card-header>
+                <h5  class="font_2  text-white">{{Dmeal.fork[0].restaurant.name}} | {{Dmeal.fork[0].restaurant.categories[0].title}}</h5>
+                </nb-card-header>
+                <nb-card-body>
+                  <div  class="row">
+                    <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12 text-white" >
+                      <h6 class="text-white font_2 p-2">{{Dmeal.fork[0].restaurant.rating}} rating (yelp)</h6>
+                      </div>
+                    </div>
+                </nb-card-body>
+
+              </nb-card>
+              </div>
+          </div>
+          <div class="row" *ngIf="Dmeal &&  Dmeal.fork[0].restaurant.photos.length>0">
+            <div class="col-sm-6 col-md-6 col-lg-6" *ngFor="let data  of Dmeal.fork[0].restaurant.photos">
+              <nb-card>
+                <nb-card-body>
+                  <div  class="row">
+                    <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                      <img src="{{data}}"  class="img-responsive" />
+                      </div>
+                    </div>
+                </nb-card-body>
+              </nb-card>
+
+            </div>
+            </div>
+
+            ///xperience
+            <div class="row" *ngIf="Dmeal">
+              <div class="col-sm-12">
+                <nb-card>
+                  <nb-card-header>
+                    <h5  class="font_2  text-white">{{Dmeal.fork[0].x.title}} |  {{Dmeal.fork[0].x.type}}</h5>
+                  </nb-card-header>
+                  <nb-card-body>
+                    <div  class="row">
+                      <div  class="text-white h6 font_2 p-2">
+                        {{Dmeal.fork[0].x.details}}
+                        </div>
+                        <div  class="text-white h4 font_2">
+                          <small *ngIf="Dmeal.fork[0].x.videoUrl" ><a href="{{Dmeal.fork[0].x.videoUrl}}" target="_blank"> <i class="fas fa-video"></i>&nbsp;video Link</a></small><br />
+                          <small *ngIf="Dmeal.fork[0].x.musicUrl"><a href="{{Dmeal.fork[0].x.musicUrl}}" target="_blank"><i class="fas fa-music"></i>&nbsp; music/playlist Link</a></small><br />
+                          <small *ngIf="Dmeal.fork[0].x.gameUrl" ><a href="{{Dmeal.fork[0].x.gameUrl}}" target="_blank"> <i class="fas fa-gamepad"></i>&nbsp;game Link</a></small><br />
+                          <small *ngIf="Dmeal.fork[0].x.otherUrl" ><a href="{{Dmeal.fork[0].x.otherUrl}}" target="_blank"> <i class="fas fa-rss"></i>&nbsp;other Link</a></small><br />
+
+                          </div>
+
+                      </div>
+                  </nb-card-body>
+
+                </nb-card>
+                </div>
+            </div>
+            <div class="row" *ngIf="Dmeal && Dmeal.fork[0].xImages.length>0">
+              <div class="col-sm-6 col-md-6 col-lg-6" *ngFor="let data  of Dmeal.fork[0].xImages">
+                <nb-card>
+                  <nb-card-body>
+                    <div  class="row">
+                      <div  clas="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                        <img src="{{data.image}}"  class="img-responsive" />
+                        </div>
+                      </div>
+                  </nb-card-body>
+                </nb-card>
+
+              </div>
+              </div>
+
+    </nb-layout-column>
+    </nb-layout>
+
+</ion-content>

@@ -1,9 +1,88 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>wallet</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <nb-layout center class="own-scroll">
+    <nb-layout-header fixed>
+      <nb-actions>
+        <nb-action routerLink="/home" class="text-white"><i class="fas fa-apple-alt icon_1" ></i></nb-action>
+
+      </nb-actions>
+    </nb-layout-header>
+    <nb-layout-column class="p-0">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <nb-card style="background-image: linear-gradient(135deg, #FF7AF5 0%, #513162 100%);">
+              <nb-card-body class="pt-4 mt-4 mb-4">
+                  <h4 class="text-center font_1 text-white">Your Wallet</h4>
+                  <h6 class="font_1 text-center text-white pt-2 d-block font_2 col-md-8 offset-md-2"   style="line-height:33px">Your Earnings go here, withdraw to your personal bitcoin wallet when ready. Deposit bitcoins here to pay for orders and services</h6>
+                  <h6 class="font_1 text-center text-white pt-2 d-block font_2 col-md-8 offset-md-2 mb-4"   style="line-height:33px" *ngIf="btc_value">
+                    btc value: ${{btc_value | number : '1.2-2'}}<br />avg txt fee: ${{txt_fee | number : '1.2-2'}}
+                  </h6>
+
+
+              </nb-card-body>
+            </nb-card>
+
+          </div>
+        </div>
+        <div class="row p-2 justify-content-md-center" *ngIf="Duser">
+          <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8 col-xxl-8 text-center">
+            <nb-card class="p-2">
+              <nb-card-body class="p-2">
+                <nb-tabset fullWidth>
+                 <nb-tab tabTitle="Receive">
+                   <div  class="row">
+                     <div class="col-12 mt-4">
+                       <p class="text-center">
+                         <img src="{{Duser.btc_qr}}" class="img-img-thumbnail"  />
+                         </p>
+                         <p class="col-12 text-center font_4 text-white">
+                           {{Duser.btc_address}}
+                           </p>
+                           <p class="text-center">
+                             <button nbButton shape="semi-round" routerLink="/session" status="warning" class="font_b" >Copy</button>
+
+                             </p>
+                       </div>
+                     </div>
+                 </nb-tab>
+                 <nb-tab tabTitle="Send" class="p-0">
+                   <nb-card class="p-0">
+
+                     <nb-card-body class="p-0">
+                       <h6 class="font_2 text-center  p-4 text-white">Balance: {{Duser.btc_balance}}</h6>
+
+                       <form class="form" [formGroup]="_wallet" (ngSubmit)="tryLogin(_login.value)">
+                         <div class="p-1">
+                           <input type="number" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="amount" formControlName="units">
+
+                         </div>
+                         <div class="p-1">
+                           <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="address" formControlName="address">
+
+                         </div>
+
+                         <div class="text-center">
+
+                           <button nbButton  fullWidth  status="info" class="mt-3" (click)="show_register=true"> Send</button>
+                           <button nbButton  fullWidth  status="default" class="mt-2" (click)="show_register=true"> Scan QR</button>
+
+                         </div>
+
+                       </form>
+
+                     </nb-card-body>
+                   </nb-card>
+                 </nb-tab>
+                </nb-tabset>
+
+              </nb-card-body>
+            </nb-card>
+
+          </div>
+        </div>
+
+
+    </nb-layout-column>
+  </nb-layout>
 
 </ion-content>

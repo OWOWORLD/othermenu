@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ForkSharePage } from './fork-share.page';
+import { OrderCheckoutPage } from './order-checkout.page';
 
-describe('ForkSharePage', () => {
-  let component: ForkSharePage;
-  let fixture: ComponentFixture<ForkSharePage>;
+describe('OrderCheckoutPage', () => {
+  let component: OrderCheckoutPage;
+  let fixture: ComponentFixture<OrderCheckoutPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ForkSharePage ],
+      declarations: [ OrderCheckoutPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ForkSharePage);
+    fixture = TestBed.createComponent(OrderCheckoutPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

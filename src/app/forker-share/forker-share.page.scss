@@ -1,0 +1,39 @@
+.font_1{
+  font-family: 'Exo', sans-serif;
+}
+.font_2{
+  font-family: 'Didact Gothic', sans-serif;
+}
+.font_3{
+  font-family: 'Architects Daughter', cursive;
+}
+.font_4{
+  font-family: 'Coiny', cursive;
+}
+.font_b{
+  font-family: 'K2D', sans-serif;
+}
+.btn-file {
+  position: relative;
+  overflow: hidden;
+  color:#fff;
+  font-family: 'Didact Gothic', sans-serif;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 999px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}

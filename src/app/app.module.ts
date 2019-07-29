@@ -14,17 +14,18 @@ import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbMenuModule, NbSidebar
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { IonicStorageModule } from '@ionic/storage';
 import { LocalStorageService } from './session/service';
+
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { PinDialog } from '@ionic-native/pin-dialog/ngx';
 import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
-
+import { CookieService } from 'ngx-cookie-service';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [FormsModule,
     ReactiveFormsModule,
-    BrowserModule, IonicModule.forRoot(), HttpClientModule, AppRoutingModule, NbThemeModule.forRoot({ name: 'default' }), NbLayoutModule, NbEvaIconsModule, NbSidebarModule.forRoot(), NbMenuModule.forRoot(), IonicStorageModule.forRoot()],
+    BrowserModule, IonicModule.forRoot(), HttpClientModule, AppRoutingModule, NbThemeModule.forRoot({ name: 'dark' }), NbLayoutModule, NbEvaIconsModule, NbSidebarModule.forRoot(), NbMenuModule.forRoot(), IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
@@ -35,6 +36,7 @@ import { GoogleAnalytics } from '@ionic-native/google-analytics/ngx';
     Device,
     PinDialog,
     GoogleAnalytics,
+    CookieService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -1,3 +1,40 @@
+@import '../../themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+@import '~bootstrap/dist/css/bootstrap.css';
+
+img {
+    image-orientation: from-image;
+}
+#image {
+image-orientation: unset;
+}
+:host ::ng-deep {
+  display: block;
+
+  .menu-items,
+  .menu-item > .menu-items {
+    list-style-type: none;
+    overflow: hidden;
+  }
+
+  .menu-item a {
+    display: flex;
+    color: inherit;
+    text-decoration: none;
+    align-items: center;
+
+    .menu-title {
+      flex: 1 0 auto;
+      color:#fff;
+      @include nb-rtl(text-align, right);
+    }
+  }
+
+  .menu-group span {
+    display: flex;
+  }
+}
 .font_1{
   font-family: 'Exo', sans-serif;
 }

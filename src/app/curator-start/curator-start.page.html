@@ -1,0 +1,134 @@
+<ion-content>
+  <nb-layout center class="own-scroll">
+    <nb-layout-header fixed>
+      <nb-actions>
+        <nb-action routerLink="/home" class="text-white"><i class="fas fa-apple-alt icon_1"></i></nb-action>
+
+      </nb-actions>
+    </nb-layout-header>
+    <nb-layout-column class="p-0">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <nb-card style="background-image: linear-gradient(135deg, #FF7AF5 0%, #513162 100%);">
+            <nb-card-body class="pt-4 mt-4 mb-4" *ngIf="!show_activate">
+              <h4 class="text-center font_1 text-white">Delivery Genie</h4>
+              <h6 class="font_1 text-center text-white pt-2 d-block font_2 col-md-8 offset-md-2 mb-4" style="line-height:33px">Set your price <span class="text-info">!</span><br /> how much would you charge to pick up a food high club members meal
+                from a local restaurant and deliver it to them along with a mystery box you put together? The myster box could contain a mix of coupons to other restaurants, tickets to events only you have access to, CBD product samples and other meal
+                enhancing gifts. </h6>
+              <div class="text-center">
+                <button nbButton shape="semi-round" status="warning" class="font_b" routerLink="/session" *ngIf="!user_id">Activate Account</button>
+                <button nbButton shape="semi-round" status="warning" class="font_b" routerLink="/wallet" *ngIf="user_id  && Duser && Duser.btc_balance>=activation_fee">Activate Account</button>
+                <button nbButton shape="semi-round" status="success" class="font_b" (click)="show_activate=true;" *ngIf="user_id  && Duser && Duser.btc_balance<=activation_fee && !Dcurator">Activate Account</button>
+                <button nbButton shape="semi-round" status="success" class="font_b" routerLink="/curator/dashboard" *ngIf="Dcurator">go to dashboard</button>
+              </div>
+
+            </nb-card-body>
+            <nb-card-body class="pt-4 mt-4 mb-4" *ngIf="show_activate">
+              <h4 class="text-center font_1 text-white">Delivery Genie</h4>
+              <h6 class="font_1 text-center text-white pt-2 d-block font_2 col-md-8 offset-md-2 mb-4" style="line-height:33px">Activate Profile<br /><small>activation fee will be debited from your account when you submit this form</small></h6>
+
+            </nb-card-body>
+          </nb-card>
+
+        </div>
+      </div>
+      <div class="row justify-content-md-center pl-2 pr-2" *ngIf="show_activate">
+        <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+          <nb-card class="p-2">
+            <nb-card-body class="p-2">
+              <form class="form" [formGroup]="_curator" (ngSubmit)="tryActivate(_curator.value)">
+                <div class="p-1">
+                  <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="first  name" formControlName="fname">
+
+                </div>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of _Vcur.fname">
+                    <div class="text-danger text-center" *ngIf="_curator.get('fname').hasError(validation.type) && (_curator.get('fname').dirty || _curator.get('fname').touched)">
+                      {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="p-1">
+                  <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="last name" formControlName="lname">
+
+                </div>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of _Vcur.lname">
+                    <div class="text-danger text-center" *ngIf="_curator.get('lname').hasError(validation.type) && (_curator.get('lname').dirty || _curator.get('lname').touched)">
+                      {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="p-1">
+                  <input type="number" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="phone" formControlName="phone">
+                </div>
+                <div class="validation-errors">
+                  <ng-container *ngFor="let validation of _Vcur.phone">
+                    <div class="text-danger text-center" *ngIf="_curator.get('phone').hasError(validation.type) && (_curator.get('phone').dirty || _curator.get('phone').touched)">
+                      {{ validation.message }}
+                    </div>
+                  </ng-container>
+                </div>
+                  <div class="col-12">
+
+                    <nb-checkbox formControlName="agree"><span class="text-white">I love to make people happy</span></nb-checkbox>
+
+                  </div>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of _Vcur.agree">
+                      <div class="text-danger text-center" *ngIf="_curator.get('agree').hasError(validation.type) && (_curator.get('agree').dirty || _curator.get('agree').touched)">
+                        {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+                <div class="p-3 text-center">
+                  <button nbButton fullWidth status="success" type="submit" [disabled]="!_curator.valid" > Activate</button>
+
+                </div>
+
+              </form>
+
+            </nb-card-body>
+          </nb-card>
+
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!show_activate">
+        <div class="col-sm-12 text-center">
+          <nb-card class="p-2">
+            <nb-card-body class="p-2">
+              <p class="text-center pt-4">
+                <i class="fas fa-info-circle icon_error"></i>
+              </p>
+
+              <h5 class="text-center text-white d-block font_2 col-md-6 offset-md-3 font_2">Set Your Price! <br /><small>You are the best at creating awesome meal experiences, food high members are looking for awesome meal experiences. It's a match
+                  made in the heavens.</small> </h5>
+              <p class="text-center pt-4">
+                <i class="fas fa-info-circle icon_error"></i>
+              </p>
+              <h5 class="text-center text-white d-block font_2 col-md-6 offset-md-3 ">Fees<br />
+                <small>Account Activation: $49.<small>00</small> <br />= {{activation_fee}} BTC<br />Service Fee: 21% per delivery<br />
+                  Service Fee: 15% per online store sale
+                </small>
+              </h5>
+              <p class="text-center pt-4">
+                <i class="fas fa-info-circle icon_error"></i>
+              </p>
+
+              <h5 class="text-center text-white d-block font_2 col-md-6 offset-md-3 ">Genie Requirements<br />
+                <small>ideally, a genie should have a highly active cannabis/cbd lifestyle and above average knowlege of the industry. In addition, genie's should love making people happy and have an good understanding of cryptocurrency.</small>
+              </h5>
+
+            </nb-card-body>
+          </nb-card>
+
+        </div>
+      </div>
+
+
+    </nb-layout-column>
+  </nb-layout>
+
+</ion-content>

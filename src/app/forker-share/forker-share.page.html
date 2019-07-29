@@ -1,0 +1,325 @@
+<ion-content>
+  <nb-layout center class="own-scroll">
+    <nb-layout-header fixed>
+      <nb-actions>
+        <nb-action routerLink="/home" class="text-white"><i class="fas fa-apple-alt icon_1" ></i></nb-action>
+
+      </nb-actions>
+    </nb-layout-header>
+    <nb-layout-column class="p-0">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <nb-card style="background-image: linear-gradient(135deg, #ABDCFF 0%, #0396FF 100%);">
+              <nb-card-body class="pt-4 mt-4 mb-4" *ngIf="!show_share">
+                  <h4 class="text-center font_1 text-white mb-4">fork your meal<br /></h4>
+                  <h6 class="font_1 text-center text-white pt-2 mb-4"  style="line-height:33px">You'll earn money (bitcoin)<br /> when club members order your meal experience</h6>
+                  <div  class="text-center " *ngIf="user_id">
+                    <button nbButton shape="semi-round"  status="warning" class="font_b" (click)="show_share=true">Share</button>
+                    </div>
+                    <div  class="text-center " *ngIf="!user_id">
+                      <button nbButton shape="semi-round" routerLink="/session"  status="danger" class="font_b">Login</button>
+                      </div>
+              </nb-card-body>
+              <nb-card-body class="pt-4 mt-4 mb-4" *ngIf="show_share">
+                <h4 class="text-center font_1 text-white"  *ngIf="!step">step 1<br /><small>what  restaurant?</small></h4>
+                <h4 class="text-center font_1 text-white"  *ngIf="step==2">step 2<br /><small>meal details</small></h4>
+                  <h4 class="text-center font_1 text-white"  *ngIf="step==3">step 3<br /><small>meal enhancer</small></h4>
+                  <h4 class="text-center font_1 text-white"  *ngIf="step==4">lastly<br /><small>any additional experiences?</small></h4>
+
+
+                  <h6 class="font_1 text-center text-white pt-2"  style="line-height:33px"  *ngIf="!step">
+                    <span class="font_3"><strong>or</strong> <br />if you are onboarding a restuarant</span> </h6>
+                    <h5 class="font_1 text-center text-white pt-2"  style="line-height:33px"  *ngIf="step">
+                      <span class="font_3"><small><strong>for</strong></small> <br />{{restaurantName}}</span> </h5>
+                  <div  class="text-center " *ngIf="!step">
+                    <button nbButton shape="semi-round" routerLink="/forker/onboard"  status="success" class="font_b" (click)="show_share=true">click here</button>
+                    </div>
+              </nb-card-body>
+            </nb-card>
+
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center pl-2 pr-2"  *ngIf="show_share && !step">
+          <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+            <nb-card class="p-2">
+              <nb-card-header>
+                <h4 class="font_2 text-center p-2  text-white">Restaurant</h4>
+              </nb-card-header>
+              <nb-card-body class="p-2">
+                <form class="form" [formGroup]="_forkSearch" (ngSubmit)="trySearch(_forkSearch.value)">
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="city" formControlName="city">
+
+                  </div>
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="restaurant name" (keypress)="search($event)" formControlName="name">
+
+                  </div>
+
+                </form>
+
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center pl-2 pr-2"  *ngIf="show_share && step==2">
+          <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+            <nb-card class="p-2">
+              <nb-card-header>
+                <h4 class="font_2 text-center p-2  text-white">Meal info</h4>
+              </nb-card-header>
+              <nb-card-body class="p-2">
+                <form class="form" [formGroup]="_fork" (ngSubmit)="addMeal(_fork.value)">
+                  <div  class="p-1">
+                    <nb-select placeholder="serving" class="text-white" formControlName="serving">
+                       <nb-option value="single"  class="text-white" >1 item</nb-option>
+                       <nb-option value="combo" class="text-white" >Combo meal</nb-option>
+                       <nb-option value="full" class="text-white" >Full Course</nb-option>
+                     </nb-select>
+                    </div>
+                  <div  class="p-1">
+                    <nb-select placeholder="category" class="text-white" formControlName="category">
+                      <nb-option value="breakfast"  class="text-white" >Breakfast</nb-option>
+                      <nb-option value="appetizer"  class="text-white" >Appetizer</nb-option>
+                      <nb-option value="appetizer/meal"  class="text-white" >Appetizer w/meal</nb-option>
+                       <nb-option value="appetizer/meal/dessert"  class="text-white" >Appetizer w/meal & dessert</nb-option>
+                       <nb-option value="sandwich" class="text-white" >sandwich</nb-option>
+                       <nb-option value="salad" class="text-white" >Salad</nb-option>
+                       <nb-option value="salad/meal" class="text-white" >Salad w/meal</nb-option>
+                       <nb-option value="salad/meal/desert" class="text-white" >Salad w/meal & dessert</nb-option>
+                       <nb-option value="soup" class="text-white" >Soup</nb-option>
+                       <nb-option value="soup/meal" class="text-white" >Soup w/meal</nb-option>
+                       <nb-option value="soup/meal/dessert" class="text-white" >Soup w/meal & dessert</nb-option>
+                       <nb-option value="lunch" class="text-white" >Lunch</nb-option>
+                       <nb-option value="Dinner" class="text-white" >Dinner</nb-option>
+                       <nb-option value="Desert" class="text-white" >Desert</nb-option>
+                       <nb-option value="Desert" class="text-white" >Desert w/meal</nb-option>
+                       <nb-option value="Drink" class="text-white" >Drink</nb-option>
+                     </nb-select>
+                    </div>
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="name" formControlName="title">
+
+                  </div>
+                  <div class="p-1">
+                    <input type="number" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="price" formControlName="price">
+
+                  </div>
+
+                  <div class="p-1">
+                    <textarea nbInput fullWidth class="text-white" placeholder="meal details ex: Steak & cheese sandwich: $16, a classic steak an cheese on wheat bread..." formControlName="details"></textarea>
+                  </div>
+                  <div class="p-3 text-center" *ngIf="!upload_progress">
+                    <span class="btn g-bg-cgreen btn-file  p-3 btn-lg">
+                      <i class="fas fa-cloud-upload-alt icon_1"></i> &nbsp;images
+                      <input accept="images/*" type="file" (change)="selectFile($event,1)" multiple>
+                    </span>
+                  </div>
+                  <div class="p-3 text-center text-white font_2" *ngIf="upload_progress && DMealImages && DMealImages.length<1">
+                    {{upload_progress}}% <i class="fas fa-cloud-upload-alt icon_1"></i>
+                  </div>
+                  <div class="row p-3" *ngIf="DMealImages">
+                    <div class="col-4" *ngFor="let data of DMealImages">
+                        <img src="{{data.image}}" class="img-thumbnail"  />
+                      </div>
+                    </div>
+                  <div class="p-1" *ngIf="uploadComplete">
+                    <button nbButton fullWidth  status="warning" type="submit" [disabled]="!_fork.valid"><i class="fas fa-arrow-right"></i>&nbsp; Next</button>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center pl-2 pr-2"  *ngIf="show_share && step==3">
+          <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+            <nb-card class="p-2">
+              <nb-card-header>
+                <h4 class="font_2 text-center p-2  text-white">Meal Enhancers</h4>
+              </nb-card-header>
+              <nb-card-body class="p-2">
+                <form class="form" [formGroup]="_forkEnhancer" (ngSubmit)="addStrain(_forkEnhancer.value)">
+                  <div  class="p-1">
+                    <nb-select placeholder="strain" class="text-white" formControlName="strain">
+                       <nb-option value="stativa"  class="text-white" >Sativa</nb-option>
+                       <nb-option value="indica" class="text-white" >Indica</nb-option>
+                       <nb-option value="Hybrid" class="text-white" >Hybrid</nb-option>
+                     </nb-select>
+                    </div>
+
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="name" formControlName="name">
+
+                  </div>
+
+                  <div class="p-1">
+                    <textarea nbInput fullWidth class="text-white" placeholder="flavor & meal pairing profile" formControlName="profile"></textarea>
+                  </div>
+                  <div class="p-3 text-center"  *ngIf="!upload_progress">
+                    <span class="btn g-bg-cgreen btn-file  p-3 btn-lg">
+                      <i class="fas fa-cloud-upload-alt icon_1"></i> &nbsp;images
+                      <input accept="images/*" type="file" (change)="selectFile($event,2)" multiple>
+                    </span>
+                  </div>
+                  <div class="p-3 text-center text-white font_2" *ngIf="upload_progress && DStrainImages && DStrainImages.length<1">
+                    {{upload_progress}}% <i class="fas fa-cloud-upload-alt icon_1"></i>
+                  </div>
+                  <div class="row pl-2 pr-2" *ngIf="DStrainImages">
+                    <div class="col-4" *ngFor="let data of DStrainImages">
+                        <img src="{{data.image}}" class="img-thumbnail"  />
+                      </div>
+                    </div>
+                  <div class="p-1" *ngIf="uploadComplete">
+                    <button nbButton fullWidth  status="warning" type="submit" [disabled]="!_forkEnhancer.valid"><i class="fas fa-arrow-right"></i>&nbsp; Next</button>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center pl-2 pr-2"  *ngIf="show_share && step==4">
+          <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9 col-xxl-9">
+            <nb-card class="p-2">
+              <nb-card-header>
+                <h4 class="font_2 text-center p-2  text-white">Additional Experience</h4>
+              </nb-card-header>
+              <nb-card-body class="p-2">
+                <form class="form" [formGroup]="_forkX" (ngSubmit)="addX()">
+                  <div  class="p-1">
+                    <nb-select placeholder="type" class="text-white" formControlName="type">
+                       <nb-option value="movie"  class="text-white" >Movie</nb-option>
+                       <nb-option value="music" class="text-white" >Music</nb-option>
+                       <nb-option value="book" class="text-white" >Book</nb-option>
+                       <nb-option value="audio book" class="text-white" >Audio Book</nb-option>
+                       <nb-option value="movie/couples" class="text-white" >Couples Movie</nb-option>
+                       <nb-option value="music/couples" class="text-white" >Couples Music</nb-option>
+                       <nb-option value="nitelife/couples" class="text-white" >Nite Life Couples</nb-option>
+                       <nb-option value="nitelife/couples" class="text-white" >Nite Life</nb-option>
+                       <nb-option value="dare/couples" class="text-white" >Couples Dare</nb-option>
+                       <nb-option value="dare/nitelife" class="text-white" >Nitelife Dare</nb-option>
+                       <nb-option value="dare" class="text-white" >Dare</nb-option>
+                       <nb-option value="selfcare" class="text-white" >Girl Time/Selfcare</nb-option>
+
+                     </nb-select>
+                    </div>
+
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="title" formControlName="title">
+
+                  </div>
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="video url" formControlName="videoUrl">
+
+                  </div>
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="music/playlist url" formControlName="musicUrl">
+
+                  </div>
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="game url" formControlName="gameUrl">
+
+                  </div>
+                  <div class="p-1">
+                    <input type="text" nbInput fullWidth fieldSize="giant" class="text-white" placeholder="any other url" formControlName="otherUrl">
+
+                  </div>
+
+                  <div class="p-1">
+                    <textarea nbInput fullWidth class="text-white" placeholder="details ex: watched the host (with subtitles)..." formControlName="details"></textarea>
+                  </div>
+                  <div class="p-3 text-center" *ngIf="!upload_progress">
+                    <span class="btn g-bg-cgreen btn-file  p-3 btn-lg">
+                      <i class="fas fa-cloud-upload-alt icon_1"></i> &nbsp;images
+                      <input accept="images/*" type="file" (change)="selectFile($event,3)" multiple>
+                    </span>
+                  </div>
+                  <div class="p-3 text-center text-white font_2" *ngIf="upload_progress && DXImages && DXImages.length<1">
+                    {{upload_progress}}% <i class="fas fa-cloud-upload-alt icon_1"></i>
+                  </div>
+                  <div class="row pl-2 pr-2" *ngIf="DXImages">
+                    <div class="col-4" *ngFor="let data of DXImages">
+                        <img src="{{data.image}}" class="img-thumbnail"  />
+                      </div>
+                    </div>
+                  <div class="p-1" *ngIf="uploadComplete">
+                    <button nbButton fullWidth  status="success" type="submit" [disabled]="!_forkX.valid"><i class="fas fa-arrow-right"></i>&nbsp; Complete</button>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center pr-2 pl-2 row-eq-height" *ngIf="Dsearch && Dsearch.length>0  &&  show_share  && !step">
+          <div  class="col-md-3 col-lg-4 col-xl-4 col-xxl-4" *ngFor="let data of Dsearch">
+            <nb-card class="text-white" accent="info">
+              <nb-card-header>
+                  <div class="row">
+                      <div  class="col-12  text-white pt-2 pl-0 mt-1 text-right font_2">
+                        {{data.name}}
+                        </div>
+                    </div>
+              </nb-card-header>
+              <nb-card-body class="p-0 text-center">
+                <img src="{{data.image_url}}"  class="img-responsive" style="max-height:189px; width:auto; margin-left:auto; margin-right:auto"/>
+              </nb-card-body>
+              <nb-card-footer>
+                <div class="row">
+                  <div  class="col-12 d-inline-block ">
+                    <h5 class="font_2 text-success text-center align-middle" *ngIf="data.categories">
+                     {{data.display_phone}}<br /><small><small class="font_3">{{data.categories[0].title}}</small></small><br /><small><small>{{data.location.display_address[0]}}<br /> {{data.location.display_address[1]}}</small></small>
+
+                    </h5>
+
+                    </div>
+                    <div  class="col-12 d-inline text-center">
+                      <button nbButton  shape="semi-round" (click)="selectRestaurant(data.alias,data.name,data.location.display_address[0],data.location.display_address[1])" status="warning" class="font_b" ><i class="fas fa-check-double"></i> &nbsp;select</button>
+
+                      </div>
+
+                  </div>
+              </nb-card-footer>
+            </nb-card>
+            </div>
+        </div>
+
+        <div class="row"  *ngIf="!show_share">
+          <div class="col-sm-12 text-center">
+            <nb-card class="p-2">
+              <nb-card-body class="p-2">
+                <p class="text-center pt-4">
+                  <i class="fas fa-info-circle icon_error"></i>
+                  </p>
+
+                <h5 class="text-center text-white d-block font_2 col-md-4 offset-md-4 font_2">Are you a forker? <br /><small>share your  story  about your  meal  pairing or meal enhancment recommendations. Recommend a movie, show, music or city experience.</small> </h5>
+                <p class="text-center pt-4">
+                  <i class="fas fa-info-circle icon_error"></i>
+                  </p>
+                  <h5 class="text-center text-white d-block font_2 col-md-4 offset-md-4 ">Forker  Benefits<br /><small>You are paid 2.5% of the total order each time club members fork your meal experience
+                    <br /><br />You are paid an additional 2.5% from every order received by a resturant that  you onboarded.<br /><span class="text-danger">restaurants can only be onboarded by forkers</span>
+                  </small>
+                  </h5>
+                  <p class="text-center pt-4">
+                    <i class="fas fa-info-circle icon_error"></i>
+                    </p>
+
+                  <h5 class="text-center text-white d-block font_2 col-md-4 offset-md-4 ">Forker  Requirements<br />
+                    <small>ideally, a forker enjoys discovering good food and has an active cannabis/cbd lifestyle. In addition, forkers must also be able to explain cryptocurrency to resturant owners and or help them navigate and manage their food high club profile.</small>
+                  </h5>
+
+              </nb-card-body>
+            </nb-card>
+
+          </div>
+        </div>
+
+
+    </nb-layout-column>
+  </nb-layout>
+
+</ion-content>

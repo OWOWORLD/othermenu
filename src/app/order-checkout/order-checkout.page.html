@@ -1,0 +1,141 @@
+<ion-content>
+  <nb-layout center class="own-scroll">
+    <nb-layout-header fixed>
+      <nb-actions>
+        <nb-action routerLink="/home" class="text-white"><i class="fas fa-apple-alt icon_1" ></i></nb-action>
+        <nb-action [nbContextMenu]="curators" nbContextMenuTag="curators" right  status="info"><i class="fas fa-hat-wizard icon_2" ></i></nb-action>
+        <nb-action [nbContextMenu]="gifts" nbContextMenuTag="gifts" right  status="info"><i class="fas fa-gifts icon_3"></i></nb-action>
+        <nb-action [nbContextMenu]="profile" nbContextMenuTag="profile" right  status="info" *ngIf="user_id"><i class="fas fa-user-astronaut icon_4"></i></nb-action>
+      </nb-actions>
+    </nb-layout-header>
+    <nb-layout-column class="p-0">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <nb-card style="background-image: linear-gradient(135deg, #79F1A4 0%, #0E5CAD 100%);" *ngIf="!show_deposit">
+            <nb-card-body class="pt-4 mt-4 mb-4"  *ngIf="Duser && Dorder && Dorder.paid<1">
+                <h4 class="text-center font_1 text-white">checkout</h4>
+                <h5 class="font_1 text-center text-white pt-2 mb-2">
+                  Total: ${{Dorder.total_cash}}
+                </h5>
+                <h6 class="text-center font_1 text-white">{{Dorder.total_btc}} <small>BTC</small><br /><small>debited from your BTC  wallet</small></h6>
+
+                <div  class="text-center mt-4 pt-1 mb-1">
+                  <button nbButton shape="semi-round"  (click)="pay()" status="success" class="font_b" *ngIf="Duser.btc_balance>Dorder.total_btc"><i class="fas fa-check-double"></i>  &nbsp;Pay</button>
+                  <button nbButton shape="semi-round"  (click)="show_deposit=true" status="warning" class="font_b" *ngIf="Duser.btc_balance<Dorder.total_btc"><i class="fas fa-long-arrow-alt-down"></i>  &nbsp;Deposit  BTC</button>
+                </div>
+                <h6 class="text-center font_1 text-white" *ngIf="Duser.btc_balance<Dorder.total_btc"><small>insuficient  balance</small></h6>
+
+            </nb-card-body>
+            <nb-card-body class="pt-4 mt-4 mb-4"  *ngIf="Duser && Dorder && Dorder.paid>0">
+                <h4 class="text-center font_1 text-white">checkout</h4>
+                <h5 class="font_1 text-center text-white pt-2 mb-2">
+                  Your Order Is
+                </h5>
+                <h6 class="text-center font_1 text-white">{{Dorder.total_btc}} <small>BTC</small><br /><br /><small class="text-warning"><strong>PAID!</strong></small></h6>
+                <div  class="text-center mt-4 pt-1 mb-1" *ngIf="Dorder.completed_confirm < 1 && Dorder.completed>0">
+                  <button nbButton shape="semi-round"  (click)="complete()" status="success" class="font_b" ><i class="fas fa-check-double"></i>  &nbsp;Delivered!</button>
+                </div>
+
+            </nb-card-body>
+          </nb-card>
+
+          <nb-card style="background-image: linear-gradient(135deg, #79F1A4 0%, #0E5CAD 100%);" *ngIf="show_deposit">
+            <nb-card-body class="pt-4 mt-4 mb-4"  *ngIf="Duser && Dorder">
+                <h4 class="text-center font_1 text-white">Deposit Bitcoin</h4>
+                <h5 class="font_1 text-center text-white pt-2 mb-2">
+                  Balance: {{Duser.btc_balance}}<br />
+                  <small>value:  ${{btc_value*Duser.btc_balance | number : '1.2-2'}}</small>
+                </h5>
+                <p  class="text-center">
+                  <img  src="{{Duser.btc_qr}}"   />
+                  </p>
+                <h6 class="text-center font_1 text-white"><small>{{Duser.btc_address}}</small></h6>
+                <div  class="text-center mt-4 pt-1 mb-1">
+                  <button nbButton ghost  shape="semi-round"  (click)="show_deposit=false" status="success" class="font_b" ><i class="fas fa-long-arrow-alt-left"></i>  &nbsp;back</button>
+                </div>
+
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center pl-2 pr-2" *ngIf="Dorder">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <nb-card class="text-white" accent="success">
+            <nb-card-header>
+
+                  <div class="row">
+                    <div  class="col-3 d-inline pr-2">
+                      <img src="{{Dorder.venue_pic}}" class="rounded-circle img-thumbnail"  style="height:50px;width:auto" />
+                      </div>
+                      <div  class="col-9  text-white pt-2 pl-0 mt-1 text-right font_2">
+                        {{Dorder.venue_name}}
+                        </div>
+                    </div>
+            </nb-card-header>
+            <nb-card-body class="p-0 text-center">
+              <img src="{{Dorder.venue_pic}}"  class="img-responsive" style="max-height:189px; width:auto; margin-left:auto; margin-right:auto"/>
+            </nb-card-body>
+            <nb-card-footer>
+              <div class="row">
+                <div  class="col-12 d-inline-block ">
+                  <h5 class="font_2 text-success text-center align-middle">
+                   {{Dorder.venue_phone}}<br /><small><small class="font_3">{{Dorder.venue_address}}</small></small>
+
+                  </h5>
+
+                  </div>
+                </div>
+            </nb-card-footer>
+          </nb-card>
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center pl-2 pr-2" *ngIf="Dorder">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <nb-card class="text-white" accent="success">
+            <nb-card-header>
+
+                  <div class="row">
+                    <div  class="col-3 d-inline pr-2">
+                      <img src="{{Dorder.driver.avatar}}" class="rounded-circle img-thumbnail"  style="height:50px;width:auto" />
+                      </div>
+                      <div  class="col-9  text-white pt-2 pl-0 mt-1 text-right font_2">
+                        {{Dorder.driver.user_name}}
+                        </div>
+                    </div>
+            </nb-card-header>
+            <nb-card-body class="p-0 text-center"  style="background-color:#fff">
+              <img src="{{Dorder.driver.gifts[0].pics[0].image}}"  class="img-responsive" style="max-height:189px; width:auto; margin-left:auto; margin-right:auto"/>
+            </nb-card-body>
+            <nb-card-footer>
+              <div class="row">
+                <div  class="col-12 d-inline-block ">
+                  <h5 class="font_2 text-success text-center align-middle">
+                   ${{Dorder.driver.delivery_fee}}<br /><small><small class="font_3">delivery fee</small></small>
+
+                  </h5>
+
+                  </div>
+                </div>
+            </nb-card-footer>
+          </nb-card>
+        </div>
+      </div>
+
+      <div class="row justify-content-md-center pl-2 pr-2" *ngIf="Dorder">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+          <nb-card class="text-white" accent="danger">
+            <div  class="text-center mt-4 pt-1 mb-4">
+              <button nbButton shape="semi-round"  (click)="cancel()" status="dark" class="font_b">  &nbsp;Cancel Order</button>
+            </div>
+
+          </nb-card>
+        </div>
+      </div>
+    </nb-layout-column>
+
+
+  </nb-layout>
+</ion-content>
